@@ -47,23 +47,41 @@ class Base extends Component {
     renderItems = () => {
         const filteredItems = this.state.items.filter(item => item.pocket_id === this.state.currentPocket);
         return this.state.currentPocket === undefined ? 
-            this.state.items.map(item => <p>{item.name}</p>) 
+            this.state.items.map(item => 
+            <div className = "item">
+                <p>{item.name}</p>
+                <p>{item.price}</p>
+                <p>{item.quantity}</p>
+                <p>{item.quantity}</p>
+            </div>) 
             : 
-            filteredItems.map(item =><p>{item.name}</p>);
+            filteredItems.map(item =><p className = "item">{item.name}</p>);
     }
 
     render() {
         return(
             <main>
+                <p id = "logo">The Bottomless Box 3.0</p>
                 <nav>
-                    {this.renderPockets()}
+                    <div id = "navbuttons">
+                        {this.renderPockets()}
+                    </div>
+                    <div id = "add-pocket" className = "pocket">
+                        <p>+</p>
+                    </div>
                 </nav>
-                <h1>{this.getCurrentPocketName()}</h1>
+                <h1 id = "current-pocket">{this.getCurrentPocketName()}</h1>
+                <header className = "item">
+                    <p>Item</p>
+                    <p>Price</p>
+                    <p>Quantity</p>
+                    <p>Total</p>
+                </header>
                 <section id = "item-box">
                     {this.renderItems()}
                 </section>
                
-                
+                <footer></footer>
             </main>
         )
     }
