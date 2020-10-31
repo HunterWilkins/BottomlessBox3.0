@@ -4,7 +4,7 @@
     --main-background: rgb(65, 53, 41);
     --nav-background: rgb(36, 22, 13);
     --footer-background: rgb(45,45,45);
-    --aside-background: rgb(45,45,45);
+    --section-background: rgb(45,45,45);
 
     --text-color: rgb(236, 236, 236);
 
@@ -23,6 +23,7 @@ body {
     background: var(--main-background);
     color: var(--text-color);
     padding: 15px;
+    height: 100%;
 }
 
 nav {
@@ -59,4 +60,14 @@ h3 {
 
 .pocket:hover {
     border: var(--custom-border-color) solid 2px;
+}
+
+/* Custom Ids */
+
+#item-box {
+    width: 90%;
+    background: var(--section-background);
+    margin: 0 auto;
+    padding: 15px;
+    
 }
