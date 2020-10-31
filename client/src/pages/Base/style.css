@@ -1,14 +1,17 @@
+* {
+    box-sizing: border-box;
+}
 /* CSS Variable Setup */
 
 :root {
     --main-background: rgb(65, 53, 41);
     --nav-background: rgb(36, 22, 13);
     --footer-background: rgb(45,45,45);
-    --section-background: rgb(45,45,45);
+    --section-background: rgb(36, 22, 13);
 
     --text-color: rgb(236, 236, 236);
 
-    --nav-height: 75px;
+    --nav-height: 85px;
 
     --rounding: 5px;
     --custom-border-color: rgb(243, 230, 186);
@@ -65,9 +68,8 @@ h3 {
 /* Custom Ids */
 
 #item-box {
-    width: 90%;
+    width: 100%;
     background: var(--section-background);
     margin: 0 auto;
     padding: 15px;
-    
 }

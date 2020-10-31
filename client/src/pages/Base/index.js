@@ -18,29 +18,20 @@ class Base extends Component {
         const {data} = await axios.get("/api/pockets/filtered");
 
         this.setState({pockets: [...this.state.pockets, ...data]});
-        console.log(this.state.pockets);
     }
 
-    getCurrentPocketName = () => {
-        let currentPocketName = this.state.pockets.filter(pocket => pocket.pocket_id === this.state.currentPocket)[0].name;
-        return currentPocketName;
-    }
+    getCurrentPocketName = () => this.state.pockets.filter(pocket => pocket.pocket_id === this.state.currentPocket)[0].name;
     
     getItems = async () => {
         const {data} = await axios.get("/api/items");
         this.setState({items: data});
     }
 
-    createItem = async (data) => {
-        axios.post("/api/item", data);
-    }
+    createItem = async (data) => axios.post("/api/item", data);
+    
 
-    changePocket = (pocketId) => {
-        console.log("Change pocket to... " + pocketId);
-        this.setState({
-            currentPocket: pocketId
-        });
-    }
+    changePocket = (pocketId) => this.setState({currentPocket: pocketId});
+    
 
     renderPockets = () => {
         return this.state.pockets.map(pocket => 
@@ -55,14 +46,10 @@ class Base extends Component {
 
     renderItems = () => {
         const filteredItems = this.state.items.filter(item => item.pocket_id === this.state.currentPocket);
-
-        console.log(filteredItems);
-        if (this.state.currentPocket === undefined) {
-            return this.state.items.map(item => <p>{item.name}</p>)
-        }
-        else {
-            return filteredItems.map(item =><p>{item.name}</p>);
-        }
+        return this.state.currentPocket === undefined ? 
+            this.state.items.map(item => <p>{item.name}</p>) 
+            : 
+            filteredItems.map(item =><p>{item.name}</p>);
     }
 
     render() {
