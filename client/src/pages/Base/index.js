@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import Pockets from "../../components/Pockets";
 import axios from "axios";
 import "./style.css";
 
@@ -6,7 +7,9 @@ class Base extends Component {
     state = {
         pockets: [{name: "All"}],
         items: [],
-        currentPocket: undefined
+        currentPocket: undefined,
+        modal: false,
+        allPockets: []
     }
 
     componentDidMount = () => {
@@ -15,9 +18,13 @@ class Base extends Component {
     }
 
     getPockets = async () => {
-        const {data} = await axios.get("/api/pockets/filtered");
+        const {data} = await axios.get("/api/pockets");
+        console.log(data);
 
-        this.setState({pockets: [...this.state.pockets, ...data]});
+        this.setState({
+            allPockets: data.allPockets,
+            pockets: [...this.state.pockets, ...data.filteredPockets]
+        });
     }
 
     getCurrentPocketName = () => this.state.pockets.filter(pocket => pocket.pocket_id === this.state.currentPocket)[0].name;
@@ -55,7 +62,18 @@ class Base extends Component {
                 <p>{item.quantity}</p>
             </div>) 
             : 
-            filteredItems.map(item =><p className = "item">{item.name}</p>);
+            filteredItems.map(item =>
+            <div className = "item">
+                <p>{item.name}</p>
+                <p>{item.price}</p>
+                <p>{item.quantity}</p>
+                <p>{item.quantity}</p>
+            </div>
+            );
+    }
+
+    toggleModal = () => {
+        this.setState({modal: !this.state.modal});
     }
 
     render() {
@@ -66,10 +84,11 @@ class Base extends Component {
                     <div id = "navbuttons">
                         {this.renderPockets()}
                     </div>
-                    <div id = "add-pocket" className = "pocket">
+                    <div onClick = {this.toggleModal} id = "add-pocket" className = "pocket">
                         <p>+</p>
                     </div>
                 </nav>
+
                 <h1 id = "current-pocket">{this.getCurrentPocketName()}</h1>
                 <header className = "item">
                     <p>Item</p>
@@ -77,11 +96,20 @@ class Base extends Component {
                     <p>Quantity</p>
                     <p>Total</p>
                 </header>
+                
                 <section id = "item-box">
                     {this.renderItems()}
                 </section>
+                {
+                    this.state.modal ? 
+                    <Pockets pockets = {this.state.allPockets}/>
+                    :
+                    ""
+                }
                
-                <footer></footer>
+                <footer>
+                    
+                </footer>
             </main>
         )
     }
